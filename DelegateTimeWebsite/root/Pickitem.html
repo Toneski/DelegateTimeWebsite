@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Grocery Organizer</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+	<style>
+		/* CSS styles here */
+	</style>
+</head>
+<body>
+	<header>
+		<button class="tablinks" onclick="openTab(event, 'addToList')">Add to List</button>
+		<button class="tablinks" onclick="openTab(event, 'myList')">My List</button>
+	</header>
+
+	<div id="addToList" class="tabcontent">
+		<table>
+			<thead>
+				<tr>
+					<th>Item</th>
+					<th>Quantity</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Bread</td>
+					<td><input type="number" min="1" value="1"></td>
+					<td><button onclick="addItem(this)">Want It</button></td>
+				</tr>
+				<tr>
+					<td>Milk</td>
+					<td><input type="number" min="1" value="1"></td>
+					<td><button onclick="addItem(this)">Want It</button></td>
+				</tr>
+				<tr>
+					<td>Eggs</td>
+					<td><input type="number" min="1" value="1"></td>
+					<td><button onclick="addItem(this)">Want It</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div id="myList" class="tabcontent">
+		<table>
+			<thead>
+				<tr>
+					<th>Item</th>
+					<th>Quantity</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody id="myListTableBody">
+			</tbody>
+		</table>
+	</div>
+
+	<script>
+		// JavaScript code here
+
+		// open the default tab
+		document.getElementById("addToList").style.display = "block";
+
+		// function to open tab
+		function openTab(evt, tabName) {
+			var i, tabcontent, tablinks;
+			tabcontent = document.getElementsByClassName("tabcontent");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(" active", "");
+			}
+			document.getElementById(tabName).style.display = "block";
+			evt.currentTarget.className += " active";
+		}
+
+		// function to add item to My List table
+		function addItem(button) {
+			var itemRow = button.parentNode.parentNode;
+			var item = itemRow.cells[0].innerText;
+			var quantity = itemRow.cells[1].childNodes[0].value;
+			var myListTableBody = document.getElementById("myListTableBody");
+			var newRow = myListTableBody.insertRow();
+			newRow.innerHTML = "<td>" + item + "</td><td>" + quantity + "</td><td><button onclick='removeItem(this)'>Got It</button></td>";
+		}
+
+		// function to remove item from My List table
+		function removeItem(button) {
+			var itemRow = button.parentNode.parentNode;
+			itemRow.parentNode.removeChild(itemRow);
+		}
+	</script>
+</body
