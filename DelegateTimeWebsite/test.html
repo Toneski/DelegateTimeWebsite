@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Table from JSON</title>
+</head>
+<body>
+	<table id="item-table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Price</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+
+	<script>
+		fetch('items.json')
+			.then(response => response.json())
+			.then(data => {
+				const tableBody = document.querySelector('#item-table tbody');
+
+				data.forEach(item => {
+					const row = tableBody.insertRow();
+					const nameCell = row.insertCell();
+					const priceCell = row.insertCell();
+
+					nameCell.innerHTML = item.name;
+					priceCell.innerHTML = item.price;
+				});
+			});
+	</script>
+</body>
+</html>
